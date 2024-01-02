@@ -6,7 +6,11 @@ test('should return false for empty name', () => {
 });
 
 test('should return true for a valid name', () => {
-    expect(util.isFullNameValid("foo")).toBe(true);
+    expect(util.isFullNameValid("foobar")).toBe(true);
+});
+
+test('should return false for a short name', () => {
+    expect(util.isFullNameValid("foo")).toBe(false);
 });
 
 test('valid email should be accepted', () => {

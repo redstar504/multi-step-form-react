@@ -11,21 +11,34 @@ function hasValue(v) {
     return v !== "";
 }
 
-function numbersOnly(str) {
-    let strPhone = "";
-    for (let i = 0; i < str.length; i++) {
-        let num = Number(str[i]);
-        if (!num.isNaN && num > 0) {
-            strPhone += str[i];
+/**
+ * Determines if n number of digits can be extracted from the given string
+ * @param amount
+ * @returns {function(*): boolean}
+ */
+function containsDigits(amount) {
+    return function (str) {
+        let strPhone = "";
+        for (let i = 0; i < str.length; i++) {
+            let num = Number(str[i]);
+            if (!num.isNaN && num > 0) {
+                strPhone += str[i];
+            }
         }
-    }
 
-    return strPhone.length === 10;
+        return strPhone.length === amount;
+    };
 }
 
 function isLength(length) {
     return function (str) {
         return str.length === length;
+    };
+}
+
+function greaterThanLength(length) {
+    return function (str) {
+        return str.length > length;
     };
 }
 
@@ -37,14 +50,12 @@ function matchesPattern(pattern) {
 
 export const isPhoneValid = phone => createValidator(phone)(
     hasValue,
-    numbersOnly,
-    isLength(10)
+    containsDigits(10)
 );
 
-console.log(isPhoneValid("555 444 3333"));
-
 export const isFullNameValid = fullName => createValidator(fullName)(
-    hasValue
+    hasValue,
+    greaterThanLength(5)
 );
 
 export const isEmailValid = email => createValidator(email)(
