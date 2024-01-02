@@ -52,5 +52,5 @@ export const isFullNameValid = fullName => createValidator(fullName)(
 
 export const isEmailValid = email => createValidator(email)(
     hasValue,
-    matchesPattern(/.+@.+\..+/g)
+    matchesPattern(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
 );
