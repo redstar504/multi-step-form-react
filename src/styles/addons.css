@@ -1,0 +1,80 @@
+#planAddons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75em;
+}
+
+#planAddons input {
+    display: none;
+}
+
+#planAddons input:checked + label {
+    border-color: var(--purplish-blue);
+    background: var(--alabaster);
+}
+
+#planAddons label {
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+    padding: 1em;
+    border: 1px solid var(--light-gray);
+    border-radius: 0.5em;
+}
+
+#planAddons label:hover {
+    border-color: var(--purplish-blue);
+}
+
+#planAddons input:checked + label .addonControl {
+    background-color: var(--purplish-blue);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#planAddons input:checked + label .addonControl::before {
+    content: "";
+    width: 0.75rem;
+    height: 0.5625rem;
+    background: url(../assets/icon-checkmark.svg) 0 0 no-repeat;
+    color: var(--white);
+}
+
+#planAddons .addonControl {
+    display: flex;
+    flex-shrink: 0;
+    flex-basis: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 0.25rem;
+}
+
+.offer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    row-gap: 0.4375rem;
+    color: var(--marine-blue);
+}
+
+.fee {
+    color: var(--purplish-blue);
+}
+
+@media(min-width: 48em) {
+    #planAddons label {
+        column-gap: 1.5em;
+        padding: 1.25em;
+    }
+
+    .offer {
+        row-gap: 0.4375rem;
+    }
+
+    .offer small,
+    .fee {
+        font-size: 0.875rem;
+    }
+}

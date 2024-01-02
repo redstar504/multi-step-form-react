@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swalp');
+
+/* start reset */
+
+html, body, div, p, h1, h2, h3, h4, h5, h6,
+ul, ol, li, dl, dt, dd, form, fieldset, caption, legend,
+table, tr, td, th, address, blockquote, img {
+    margin: 0;
+    padding: 0;
+}
+
+img, fieldset {
+    border: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+button, label, summary {
+    cursor: pointer;
+}
+
+body, button, input, table, textarea, select {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: inherit;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+/* end reset */
+
+:root {
+    --marine-blue: hsl(213, 96%, 18%);
+    --purplish-blue: hsl(243, 100%, 62%);
+    --purplish-faded: hsl(243, 100%, 77%);
+    --pastel-blue: hsl(228, 100%, 84%);
+    --light-blue: hsl(206, 94%, 87%);
+    --strawberry-red: hsl(354, 84%, 57%);
+    --cool-gray: hsl(231, 11%, 63%);
+    --light-gray: hsl(229, 24%, 87%);
+    --lighter-gray: hsl(229, 24%, 87%, 0.4);
+    --magnolia: hsl(217, 100%, 97%);
+    --alabaster: hsl(231, 100%, 99%);
+    --white: hsl(0, 0%, 100%);
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font: 400 1em/normal Ubuntu, sans-serif;
+    background: var(--magnolia) url(../assets/bg-sidebar-mobile.svg) top center / 100vw no-repeat;
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    min-width: 21.4375em;
+    row-gap: 1em;
+}
+
+#nav {
+    display: flex;
+    justify-content: center;
+    column-gap: 1em;
+    padding: 2em 0 1em;
+    counter-reset: stepNum;
+}
+
+#nav a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+#nav a b {
+    border-radius: 50%;
+    line-height: 2.0625em;
+    font-weight: 700;
+    font-size: 0.875em;
+    text-align: center;
+    display: block;
+    width: 2.0625em;
+    height: 2.0625em;
+    border: 1px solid var(--white);
+    content: "foo";
+}
+
+#nav li a::before {
+    border-radius: 50%;
+    line-height: 2.0625em;
+    font-weight: 700;
+    font-size: 0.875em;
+    text-align: center;
+    display: block;
+    width: 2.0625em;
+    height: 2.0625em;
+    border: 1px solid var(--white);
+    counter-increment: stepNum;
+    content: counter(stepNum);
+
+}
+
+#nav li.active a::before {
+    background: var(--light-blue);
+    color: var(--marine-blue);
+}
+
+#nav span {
+    display: none;
+}
+
+.card {
+    background: var(--white);
+    margin: 0 1em;
+    border-radius: 0.625em;
+    padding: 2em 1.5em;
+    color: var(--cool-gray);
+    box-shadow: 0 25px 40px -20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: var(--marine-blue);
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0 0 .5625rem;
+}
+
+h1 + p {
+    line-height: normal;
+    margin-bottom: 1.375em;
+}
+
+h2, label span {
+    font-size: 0.875rem;
+    color: var(--marine-blue);
+    line-height: normal;
+    font-weight: 500;
+}
+
+label {
+    color: var(--marine-blue);
+    font-size: 0.75em;
+    display: flex;
+    justify-content: space-between;
+}
+
+small {
+    color: var(--cool-gray);
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+label strong {
+    display: none;
+}
+
+.error strong {
+    display: block;
+    font-weight: 700;
+    color: var(--strawberry-red);
+}
+
+.error + input {
+    border-color: var(--strawberry-red);
+}
+
+input::placeholder {
+    color: var(--cool-gray);
+}
+
+input:focus {
+    border-color: var(--purplish-blue);
+    outline: var(--purplish-blue);
+}
+
+.textInput {
+    width: 100%;
+    height: 2.5em;
+    padding: 0 1em;
+    font-size: .9375rem;
+    font-weight: 500;
+    margin: .1875em 0 1em;
+    border: 1px solid var(--light-gray);
+    border-radius: 0.25em;
+    color: var(--marine-blue);
+}
+
+.textInput:last-of-type {
+    margin-bottom: 0;
+}
+
+main > footer {
+    background: var(--white);
+    height: 4.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875em;
+    font-weight: 500;
+    padding: 0 1em;
+    margin-top: auto;
+}
+
+main > footer #prevStep {
+    color: var(--cool-gray);
+    text-decoration: none;
+}
+
+main > footer #prevStep:hover {
+    color: var(--marine-blue);
+}
+
+main > footer #nextStep {
+    width: 7.6875em;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    background: var(--marine-blue);
+    color: var(--white);
+    border-radius: .25rem;
+    text-decoration: none;
+    margin-left: auto;
+}
+
+@media (min-width: 48em) {
+    body {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        min-height: 100%;
+        background: var(--magnolia);
+    }
+
+    main {
+        flex-grow: 1;
+        display: grid;
+        grid-template-columns: 16.125em auto;
+        grid-template-rows: 1fr auto;
+        padding: 1em 0 1em 1em;
+        margin: 0 1em;
+        max-width: 68em;
+        min-height: 35.5em;
+        background: var(--white);
+        border-radius: 0.9375em;
+        box-shadow: 0 25px 40px -20px rgba(0, 0, 0, 0.1);
+        row-gap: 0;
+    }
+
+    #nav {
+        flex-direction: column;
+        justify-content: flex-start;
+        background-image: url("../assets/desktop-sidebar.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-color: var(--purplish-blue);
+        border-radius: 0.625em;
+        padding: 2.5em 2em;
+        row-gap: 2em;
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+
+    #nav li a {
+        display: flex;
+        column-gap: 1em;
+        text-transform: uppercase;
+    }
+
+    #nav span {
+        display: block;
+        font-weight: 700;
+        font-size: .875em;
+        letter-spacing: 1px;
+    }
+
+
+    #nav span::before {
+        content: "Step " counter(stepNum);
+        display: block;
+        font-size: 0.75em;
+        font-weight: 400;
+        color: var(--pastel-blue);
+        letter-spacing: normal;
+        margin: 0 0 .25em;
+    }
+
+    .card {
+        box-shadow: none;
+        margin: 0;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        padding: 3.5em 10% 0 10%;
+    }
+
+    label {
+        font-size: 0.875em;
+    }
+
+    .textInput {
+        margin-top: 0.5em;
+        height: 3em;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin-bottom: 0.6875rem;
+    }
+
+    h1 + p {
+        margin-bottom: 2.1875em;
+    }
+
+    h2, label span {
+        font-size:  1rem;
+        color: var(--marine-blue);
+        line-height: normal;
+        font-weight: 500;
+    }
+
+    main > footer {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        padding:0 10%;
+    }
+
+    main > footer #nextStep {
+        border-radius: 0.5em;
+        height: 3rem;
+        line-height: 3rem;
+    }
+}

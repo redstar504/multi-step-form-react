@@ -1,0 +1,92 @@
+#planTotals {
+    background: var(--alabaster);
+    padding: 1em;
+    color: var(--cool-gray);
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875em;
+    border-radius: 0.5em;
+    row-gap: 0.75rem;
+    margin: 0 0 1.5em;
+    line-height: 1.25rem;
+}
+
+#planTotals li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#planTotals a {
+    color: var(--cool-gray);
+}
+
+#planTotals a:hover {
+    color: var(--purplish-blue);
+}
+
+#planTotals #heading {
+    border-bottom: 1px solid var(--lighter-gray);
+    padding: 0 0 .75rem;
+}
+
+#heading h2,
+#heading strong {
+    color: var(--marine-blue);
+}
+
+#planTotals h2 {
+    margin-bottom: .1875rem;
+}
+
+#planTotals span:last-of-type {
+    color: var(--marine-blue);
+}
+
+.card > footer {
+    font-size: 0.875em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.card > footer strong {
+    font-size: 1rem;
+    color: var(--purplish-blue);
+}
+
+#summaryCard + footer #nextStep {
+    background: var(--purplish-blue);
+}
+
+#summaryCard + footer #nextStep:hover {
+    background: var(--purplish-faded);
+}
+
+@media(min-width: 48em) {
+    #planTotals {
+        row-gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    #planTotals #heading {
+        padding: 0 0 1.5rem;
+    }
+
+    #planTotals strong {
+        font-size: 1rem;
+    }
+
+    #planTotals h2 {
+        margin: 0 0 0.4375rem;
+    }
+
+    .card > footer {
+        padding: 0 1.5rem;
+    }
+
+    .card > footer strong {
+        font-size: 1.25rem;
+    }
+}

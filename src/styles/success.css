@@ -1,0 +1,33 @@
+#successCard {
+    min-height: 25em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#successCard article {
+    text-align: center;
+    background-image: url(../assets/icon-thank-you.svg);
+    background-position: top center;
+    background-size: 3.5em;
+    background-repeat: no-repeat;
+    padding: 5em 0 0;
+    flex-basis: 28.125em;
+}
+
+#successCard p {
+    line-height: 1.5625em;
+    margin-bottom: 0;
+}
+
+@media(min-width: 48em) {
+    #successCard {
+        padding-top: 0;
+    }
+
+    #successCard article {
+        background-size: 5em;
+        padding: 7em 0 0;
+    }
+}
