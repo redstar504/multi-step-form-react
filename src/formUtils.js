@@ -18,15 +18,7 @@ function hasValue(v) {
  */
 function containsDigits(amount) {
     return function (str) {
-        let strPhone = "";
-        for (let i = 0; i < str.length; i++) {
-            let num = Number(str[i]);
-            if (!num.isNaN && num > 0) {
-                strPhone += str[i];
-            }
-        }
-
-        return strPhone.length === amount;
+        return str.match(/\d/g).length === amount;
     };
 }
 
