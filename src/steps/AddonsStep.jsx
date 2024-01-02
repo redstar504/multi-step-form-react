@@ -7,7 +7,7 @@ export default function AddonsStep() {
             <p>Add-ons help enhance your gaming experience. </p>
             <ul id="planAddons">
                 <li>
-                    <input type="checkbox" id="onlineServiceOffer" checked/>
+                    <input type="checkbox" id="onlineServiceOffer"/>
                     <label htmlFor="onlineServiceOffer">
                         <i className="addonControl"></i>
                         <span className="offer">
