@@ -6,22 +6,22 @@ import SummaryStep from "./steps/SummaryStep.jsx";
 export default [
     {
         name: "Your Info",
-        component: <InfoStep/>,
+        component: InfoStep,
         options: {
             prevStep: false,
         }
     },
     {
         name: "Select Plan",
-        component: <SelectPlanStep/>
+        component: SelectPlanStep
     },
     {
         name: "Add-ons",
-        component: <AddonsStep/>
+        component: AddonsStep
     },
     {
         name: "Summary",
-        component: <SummaryStep/>,
+        component: SummaryStep,
         options: {
             nextStepLabel: "Confirm",
         }

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function StepProcessor({options, onStepBack}) {
+export default function StepProcessor({options, onStepBack, onNextStep, nextStepEnabled}) {
     const defaultOptions = {
         prevStep: true,
         nextStepLabel: "Next Step",
@@ -11,7 +11,7 @@ export default function StepProcessor({options, onStepBack}) {
     return (
         <footer>
             {ops.prevStep && (<a href="#" onClick={onStepBack} id="prevStep">Go Back</a>)}
-            <a href="#" id="nextStep">{ops.nextStepLabel || 'Next Step'}</a>
+            <button id="nextStep" disabled={!nextStepEnabled} onClick={onNextStep}>{ops.nextStepLabel || 'Next Step'}</button>
         </footer>
     );
 }

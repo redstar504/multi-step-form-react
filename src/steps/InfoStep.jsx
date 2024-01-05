@@ -1,40 +1,34 @@
-import {useState} from "react";
-import {isEmailValid, isFullNameValid, isPhoneValid} from "../formUtils.js";
+import {useInput} from "../hooks.js";
+import {
+    validEmail,
+    validFullName,
+    validPhone
+} from "../formUtils.js";
+import {useEffect} from "react";
 
-export default function InfoStep() {
-    const [fieldMapping, setFieldMapping] = useState({
-        fullName: {
-            value: '',
-            validator: isFullNameValid,
-            validity: null,
-        },
-        phoneNumber: {
-            value: '',
-            validator: isPhoneValid,
-            validity: null,
-        },
-        emailAddress: {
-            value: '',
-            validator: isEmailValid,
-            validity: null,
+export default function InfoStep({report, updateReport = f => f, enableNextStep = f => f}) {
+    const [fullNameProps, isFullNameValid, showFullNameError] = useInput(report.fullName, validFullName);
+    const [emailAddressProps, isEmailAddressValid, showEmailAddressError] = useInput(report.emailAddress, validEmail);
+    const [phoneNumberProps, isPhoneNumberValid, showPhoneNumberError] = useInput(report.phoneNumber, validPhone);
+    const isEverythingValid = [isFullNameValid, isEmailAddressValid, isPhoneNumberValid].every(v => v === true);
+
+    useEffect(() => {
+        console.log(isEverythingValid);
+        isEverythingValid && enableNextStep(isEverythingValid);
+    }, []);
+
+    useEffect(() => {
+        if (isEverythingValid) {
+            updateReport({
+                fullName: fullNameProps.value,
+                emailAddress: emailAddressProps.value,
+                phoneNumber: phoneNumberProps.value,
+            });
         }
-    });
+        enableNextStep(isEverythingValid);
+    }, [fullNameProps.value, emailAddressProps.value, phoneNumberProps.value]);
 
-    const fieldValue = id => fieldMapping[id].value;
-
-    const setFieldValue = id => e => setFieldMapping({
-        ...fieldMapping, [id]: {
-            ...fieldMapping[id],
-            value: e.target.value
-        }
-    })
-
-    const validate = id => {
-        const validity = fieldMapping[id].validator(fieldMapping[id].value);
-        setFieldMapping({...fieldMapping, [id]: { ...fieldMapping[id], validity}});
-    };
-
-    const isInvalid = id => false === fieldMapping[id].validity;
+    const buildErrorClass = shouldShow => shouldShow ? "error" : "";
 
     return (
         <section className="card" id="personalInfoCard">
@@ -42,7 +36,7 @@ export default function InfoStep() {
             <p>Please provide your name, email address, and phone number.</p>
             <form id="personalInfo">
                 <fieldset>
-                    <label htmlFor="fullName" className={isInvalid('fullName') && 'error'}>
+                    <label htmlFor="fullName" className={buildErrorClass(showFullNameError)}>
                         Name
                         <strong>This field is required</strong>
                     </label>
@@ -51,11 +45,9 @@ export default function InfoStep() {
                         id="fullName"
                         className="textInput"
                         placeholder="e.g. Stephen King"
-                        value={fieldValue('fullName')}
-                        onChange={e => setFieldValue('fullName')(e)}
-                        onBlur={() => validate('fullName')}
+                        {...fullNameProps}
                     />
-                    <label htmlFor="emailAddress" className={isInvalid('emailAddress') && 'error'}>
+                    <label htmlFor="emailAddress" className={buildErrorClass(showEmailAddressError)}>
                         Email Address
                         <strong>Please enter a valid email address</strong>
                     </label>
@@ -65,11 +57,9 @@ export default function InfoStep() {
                         id="emailAddress"
                         className="textInput"
                         placeholder="e.g. stephenking@lorem.com"
-                        value={fieldValue('emailAddress')}
-                        onChange={e => setFieldValue('emailAddress')(e)}
-                        onBlur={() => validate('emailAddress')}
+                        {...emailAddressProps}
                     />
-                    <label htmlFor="phoneNumber" className={isInvalid('phoneNumber') && 'error'}>
+                    <label htmlFor="phoneNumber" className={buildErrorClass(showPhoneNumberError)}>
                         Phone Number
                         <strong>A ten digit phone number is required</strong>
                     </label>
@@ -79,9 +69,7 @@ export default function InfoStep() {
                         id="phoneNumber"
                         className="textInput"
                         placeholder="e.g. 255-755-6585"
-                        value={fieldValue('phoneNumber')}
-                        onChange={e => setFieldValue('phoneNumber')(e)}
-                        onBlur={() => validate('phoneNumber')}
+                        {...phoneNumberProps}
                     />
                 </fieldset>
             </form>
