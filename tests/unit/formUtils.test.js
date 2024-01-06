@@ -1,5 +1,5 @@
 import {expect, test} from "vitest";
-import * as util from "../src/formUtils.js";
+import * as util from "../../src/formUtils.js";
 
 test('should return false for empty name', () => {
     expect(util.validFullName("")).toBe(false);
