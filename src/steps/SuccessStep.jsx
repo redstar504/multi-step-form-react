@@ -1,13 +1,11 @@
 import '../styles/success.css'
 import { useEffect } from 'react'
-import { useSubscription } from '../context/SubscriptionProvider.jsx'
+import { useSubscription } from '../hooks/useSubscription.js'
 
 function SuccessStep() {
   const { reset } = useSubscription()
 
-  useEffect(() => {
-    reset()
-  }, [])
+  useEffect(() => reset(), [reset])
 
   return (
     <section className="card" id="successCard">

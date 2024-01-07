@@ -4,14 +4,12 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import pricing from '../pricing.json'
-import { useSessionData } from '../hooks/useSessionData.js'
-import { useSubscription } from '../context/SubscriptionProvider.jsx'
+import { useSubscription } from '../hooks/useSubscription.js'
 
-export default function SelectPlanStep({ updateNav }) {
-  const {saveStep, subscription} = useSubscription()
+export default function SelectPlanStep() {
+  const { saveStep, subscription } = useSubscription()
   const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
-  const isUnauthorized = data => !data;
 
   const {
     register,
@@ -25,16 +23,8 @@ export default function SelectPlanStep({ updateNav }) {
     }
   })
 
-  /*useEffect(() => {
-    if (isUnauthorized(data)) {
-      navigate("/")
-    }
-  }, [navigate, data])*/
-
   useEffect(() => {
-    if (!isCompleted) return
-    // nav to next step on completion
-    navigate("/addons")
+    if (isCompleted) navigate('/addons')
   }, [navigate, isCompleted])
 
   const onSubmit = data => {

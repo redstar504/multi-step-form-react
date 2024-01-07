@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useSubscription } from '../context/SubscriptionProvider.jsx'
+import { useSubscription } from '../hooks/useSubscription.js'
 
-export default function InfoStep({updateNav}) {
+export default function InfoStep() {
   const { saveStep, subscription } = useSubscription()
   const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
@@ -17,14 +17,12 @@ export default function InfoStep({updateNav}) {
     defaultValues: {
       fullName: subscription?.fullName,
       emailAddress: subscription?.emailAddress,
-      phoneNumber: subscription?.phoneNumber,
+      phoneNumber: subscription?.phoneNumber
     }
   })
 
   useEffect(() => {
-    if (!isCompleted) return
-    // navigate to next step on completion
-    navigate('/plan')
+    if (isCompleted) navigate('/plan')
   }, [isCompleted, navigate])
 
   const onSubmit = data => {
@@ -77,7 +75,7 @@ export default function InfoStep({updateNav}) {
           </fieldset>
         </form>
       </section>
-    <FormButtons forForm="infoForm" onSubmit={handleSubmit(onSubmit)} />
+      <FormButtons forForm="infoForm" onSubmit={handleSubmit(onSubmit)} />
     </>
   )
 }

@@ -1,4 +1,4 @@
-export default function FormButtons({forForm, onSubmit, goBack = false}) {
+export default function FormButtons({ forForm, onSubmit, goBack = null }) {
   return (
     <footer>
       {goBack && <a href={goBack} id="prevStep">Go Back</a>}

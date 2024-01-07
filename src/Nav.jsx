@@ -1,15 +1,15 @@
 import NavItem from './NavItem.jsx'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useSubscription } from './context/SubscriptionProvider.jsx'
 import steps from './steps.json'
 import { useEffect } from 'react'
+import { useSubscription } from './hooks/useSubscription.js'
 
 export default function Nav() {
-  const {getMaxStep} = useSubscription()
+  const { getMaxStep } = useSubscription()
   const location = useLocation()
   const currentPath = location.pathname
   const maxStep = getMaxStep()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Nav() {
   return (
     <ul id="nav">
       {steps.map((step, i) => {
-        const isEnabled = maxStep + 1 >= i;
+        const isEnabled = maxStep + 1 >= i
         return (<NavItem key={i} isActive={currentPath === step.path} isEnabled={isEnabled} {...step} />)
       })}
     </ul>

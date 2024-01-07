@@ -3,14 +3,13 @@ import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useSessionData } from '../hooks/useSessionData.js'
-import { useSubscription } from '../context/SubscriptionProvider.jsx'
+import { useSubscription } from '../hooks/useSubscription.js'
 
-export default function AddonsStep({updateNav}) {
-  const {saveStep, subscription} = useSubscription()
+export default function AddonsStep() {
+  const { saveStep, subscription } = useSubscription()
   const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
-  const isUnauthorized = data => !data || data.completedStep < 1;
+
   const {
     register,
     handleSubmit
@@ -18,24 +17,12 @@ export default function AddonsStep({updateNav}) {
     defaultValues: {
       largerStorageAddon: subscription?.largerStorageAddon,
       onlineServiceAddon: subscription?.onlineServiceAddon,
-      customProfileAddon: subscription?.customProfileAddon,
+      customProfileAddon: subscription?.customProfileAddon
     }
   })
 
-  /*useEffect(() => {
-    if (isUnauthorized(existingData)) {
-      navigate("/plan")
-    }
-  }, [existingData, navigate])*/
-
-  /*if (isUnauthorized(existingData)) {
-    return null;
-  }*/
-
   useEffect(() => {
-    if (!isCompleted) return
-    // navigate to next step on completion
-    navigate("/summary")
+    if (isCompleted) navigate('/summary')
   }, [navigate, isCompleted])
 
   const onSubmit = data => {
@@ -52,7 +39,7 @@ export default function AddonsStep({updateNav}) {
           <ul id="planAddons">
             <li>
               <input
-                {...register("onlineServiceAddon")}
+                {...register('onlineServiceAddon')}
                 name="onlineServiceAddon"
                 type="checkbox"
                 id="onlineServiceOffer"
@@ -68,7 +55,7 @@ export default function AddonsStep({updateNav}) {
             </li>
             <li>
               <input
-                {...register("largerStorageAddon")}
+                {...register('largerStorageAddon')}
                 name="largerStorageAddon"
                 type="checkbox"
                 id="largerStorageOffer"
@@ -84,7 +71,7 @@ export default function AddonsStep({updateNav}) {
             </li>
             <li>
               <input
-                {...register("customProfileAddon")}
+                {...register('customProfileAddon')}
                 name="customProfileAddon"
                 type="checkbox"
                 id="customProfileOffer"
@@ -101,7 +88,7 @@ export default function AddonsStep({updateNav}) {
           </ul>
         </form>
       </section>
-      <FormButtons forForm="addonsForm" onSubmit={handleSubmit(onSubmit)} goBack='/plan' />
+      <FormButtons forForm="addonsForm" onSubmit={handleSubmit(onSubmit)} goBack="/plan" />
     </>
   )
 }

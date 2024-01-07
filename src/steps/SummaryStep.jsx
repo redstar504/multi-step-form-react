@@ -1,27 +1,15 @@
 import '../styles/summary.css'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
 import { capitalize } from '../lib/helpers.js'
-import { useSubscription } from '../context/SubscriptionProvider.jsx'
+import { useSubscription } from '../hooks/useSubscription.js'
 
-export default function SummaryStep({updateNav}) {
+export default function SummaryStep() {
   const { subscription, hasAddons } = useSubscription()
   const navigate = useNavigate()
-  const isUnauthorized = data => !data || data.completedStep < 2
-
-  useEffect(() => {
-    if (isUnauthorized(subscription)) {
-      return navigate('/addons')
-    }
-  }, [navigate, subscription])
 
   const handleSubmit = () => {
-    navigate("/success")
-  }
-
-  if (isUnauthorized(subscription)) {
-    return null;
+    navigate('/success')
   }
 
   return (
@@ -65,7 +53,7 @@ export default function SummaryStep({updateNav}) {
           <strong>+$12/mo</strong>
         </footer>
       </section>
-      <FormButtons onSubmit={handleSubmit} goBack='/addons' />
+      <FormButtons onSubmit={handleSubmit} goBack="/addons" />
     </>
   )
 }

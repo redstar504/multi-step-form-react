@@ -5,7 +5,7 @@ const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data)
 const clearJSON = (key) => sessionStorage.removeItem(key)
 
 export const useSessionData = () => {
-  const [data, setData] = useState(loadJSON('data'));
+  const [data, setData] = useState(loadJSON('data'))
 
   useEffect(() => {
     if (!data) {
@@ -15,7 +15,7 @@ export const useSessionData = () => {
   }, [data])
 
   const reset = () => {
-    setData("")
+    setData('')
     clearJSON('data')
   }
 

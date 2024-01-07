@@ -13,7 +13,7 @@
 .errorMessage {
     color: var(--strawberry-red);
     font-size: 0.875rem;
-    text-align:center;
+    text-align: center;
     font-weight: 700;
     height: 1.5em;
     line-height: 1.5em;
