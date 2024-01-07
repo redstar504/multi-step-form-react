@@ -5,10 +5,18 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 export default function AddonsStep({updateNav}) {
+  const existingData = JSON.parse(sessionStorage.getItem("data"))
+
   const {
     register,
     handleSubmit
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      largerStorageAddon: existingData?.largerStorageAddon,
+      onlineServiceAddon: existingData?.onlineServiceAddon,
+      customProfileAddon: existingData?.customProfileAddon,
+    }
+  })
 
   useEffect(() => {
     updateNav(2)
@@ -17,8 +25,10 @@ export default function AddonsStep({updateNav}) {
   const navigate = useNavigate()
 
   const onSubmit = data => {
-    // save the data
-    console.log(data)
+    // save data
+    const existingData = JSON.parse(sessionStorage.getItem('data'))
+    const mergedData = {...existingData, ...data};
+    sessionStorage.setItem("data", JSON.stringify(mergedData))
 
     // navigate to next step
     navigate("/summary")
@@ -82,7 +92,7 @@ export default function AddonsStep({updateNav}) {
           </ul>
         </form>
       </section>
-      <FormButtons forForm="addonsForm" onSubmit={handleSubmit(onSubmit)} />
+      <FormButtons forForm="addonsForm" onSubmit={handleSubmit(onSubmit)} goBack='/plan' />
     </>
   )
 }

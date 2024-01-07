@@ -43,7 +43,7 @@ export default function SummaryStep({updateNav}) {
           <strong>+$12/mo</strong>
         </footer>
       </section>
-      <FormButtons onSubmit={handleSubmit} />
+      <FormButtons onSubmit={handleSubmit} goBack='/addons' />
     </>
   )
 }

@@ -1,7 +1,7 @@
-export default function FormButtons({forForm, onSubmit}) {
+export default function FormButtons({forForm, onSubmit, goBack = false}) {
   return (
     <footer>
-      <a href="#" id="prevStep">Go Back</a>
+      {goBack && <a href={goBack} id="prevStep">Go Back</a>}
       <button id="nextStep" type="submit" form={forForm} onClick={onSubmit}>Next Step</button>
     </footer>
   )
