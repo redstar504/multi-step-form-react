@@ -14,5 +14,10 @@
   {
     "title": "Summary",
     "path": "/summary"
+  },
+  {
+    "title": "Success",
+    "path": "/success",
+    "hide": true
   }
 ]

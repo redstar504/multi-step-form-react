@@ -10,16 +10,15 @@ export default function Nav() {
 
   return (
     <ul id="nav">
-      {steps.map((step, i) => {
-        return (
+      {steps.map((step, i) =>
+        !step.hide && (
           <NavItem
             key={i}
             isActive={currentPath === step.path}
             isEnabled={nextAvailableStep >= i}
             {...step}
           />
-        )
-      })}
+        ))}
     </ul>
   )
 }

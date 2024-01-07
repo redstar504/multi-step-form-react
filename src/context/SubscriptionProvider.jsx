@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 export const SubscriptionContext = createContext()
 
 export default function SubscriptionProvider({ children }) {
-  const [subscription, setSubscription, reset] = useSessionData()
-  const [isAuthorized, setIsAuthorized] = useState(null)
+  const [subscription, setSubscription, resetSubscription] = useSessionData()
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -17,27 +16,31 @@ export default function SubscriptionProvider({ children }) {
   const maxStep = !subscription ? -1 : subscription.completedStep
   const nextAvailableStep = maxStep + 1
   const hasRequestedFirstStep = requestedStep === 0;
+  const hasAuthority = hasRequestedFirstStep || requestedStep <= nextAvailableStep;
 
   const term = subscription?.yearlyTerm ?
     { long: "yearly", short: "yr" } : {long: "monthly", short: "mo"}
 
   const saveStep = (stepNumber, data, callback = f => f) => {
-    setSubscription({
+    setSubscription(subscription => ({
       ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
-    })
+    }))
+    callback()
+  }
+
+  const confirm = callback => {
+    setSubscription(subscription => ({...subscription, completedStep: 3}))
     callback()
   }
 
   useEffect(() => {
-    if (false === isAuthorized) navigate(steps[nextAvailableStep].path)
-  }, [isAuthorized, navigate, nextAvailableStep])
+    if (false === hasAuthority) navigate(steps[nextAvailableStep].path)
+  }, [hasAuthority, navigate, nextAvailableStep])
 
-  useEffect(() => {
-    const isAuthorized = hasRequestedFirstStep || requestedStep <= nextAvailableStep;
-    setIsAuthorized(isAuthorized)
-  }, [requestedStep, nextAvailableStep, hasRequestedFirstStep])
-
-  if (!isAuthorized) {
+  if (!hasAuthority) {
+    console.log("Not authorized to access this step.")
+    console.log(`[${currentPath}]: Requested step: ${requestedStep}`)
+    console.log(`[${currentPath}]: Next available step: ${nextAvailableStep}`)
     return null;
   }
 
@@ -46,7 +49,7 @@ export default function SubscriptionProvider({ children }) {
   }
 
   return (
-    <SubscriptionContext.Provider value={{ subscription, saveStep, nextAvailableStep, reset, term }}>
+    <SubscriptionContext.Provider value={{ subscription, saveStep, nextAvailableStep, resetSubscription, term, confirm }}>
       {children}
     </SubscriptionContext.Provider>
   )

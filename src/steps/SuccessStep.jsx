@@ -3,8 +3,8 @@ import { useSubscription } from '../hooks/useSubscription.js'
 import { useEffect } from 'react'
 
 function SuccessStep() {
-  const { reset } = useSubscription()
-  useEffect(() => reset(), [])
+  const { resetSubscription } = useSubscription()
+  useEffect(() => resetSubscription(), [])
 
   return (
     <section className="card" id="successCard">
