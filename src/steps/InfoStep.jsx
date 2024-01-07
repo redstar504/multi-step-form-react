@@ -1,19 +1,25 @@
 import { useForm } from 'react-hook-form'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
-export default function InfoStep() {
+export default function InfoStep({updateNav}) {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
+  useEffect(() => {
+    updateNav(0)
+  }, [updateNav])
+
   const navigate = useNavigate()
 
   const onSubmit = (data) => {
     // save the data
     console.log(data)
+
     // navigate to next step
     navigate("/plan")
   }

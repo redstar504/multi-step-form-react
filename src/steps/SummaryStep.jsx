@@ -1,7 +1,19 @@
 import '../styles/summary.css'
 import FormButtons from './FormButtons.jsx'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
-export default function SummaryStep() {
+export default function SummaryStep({updateNav}) {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    updateNav(3)
+  }, [updateNav])
+
+  const handleSubmit = () => {
+    navigate("/success")
+  }
+
   return (
     <>
       <section className="card" id="summaryCard">
@@ -31,7 +43,7 @@ export default function SummaryStep() {
           <strong>+$12/mo</strong>
         </footer>
       </section>
-      <FormButtons forForm="" />
+      <FormButtons onSubmit={handleSubmit} />
     </>
   )
 }

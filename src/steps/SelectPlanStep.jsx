@@ -1,15 +1,28 @@
 import '../styles/plan.css'
 import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
-export default function SelectPlanStep() {
+export default function SelectPlanStep({updateNav}) {
   const {
     register,
     handleSubmit ,
     formState: { errors }
   } = useForm()
+
+  useEffect(() => {
+    updateNav(1)
+  }, [updateNav])
+
+  const navigate = useNavigate()
+
   const onSubmit = data => {
+    // save the data
     console.log(data)
+
+    // navigate to next step
+    navigate("/addons")
   }
 
   console.log(errors);

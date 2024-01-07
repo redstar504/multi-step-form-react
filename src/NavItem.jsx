@@ -1,6 +1,6 @@
-export default function NavItem({ title, route }) {
+export default function NavItem({ title, route, isActive }) {
   return (
-    <li>
+    <li className={isActive ? 'active' : ''}>
       <a href={route}><span>{title}</span></a>
     </li>
   )
