@@ -1,15 +1,20 @@
 import '../styles/summary.css'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
-import { capitalize } from '../lib/helpers.js'
 import { useSubscription } from '../hooks/useSubscription.js'
+import plans from '../plans.json'
+import { capitalize } from '../lib/helpers.js'
 
 export default function SummaryStep() {
-  const { subscription } = useSubscription()
+  const { subscription, term } = useSubscription()
+  const addons = subscription.addons;
   const navigate = useNavigate()
-  const addons = subscription.addons
 
   const handleSubmit = () => navigate('/success')
+
+  const addonsTotal = addons.map(label => plans.addons[label][term.long]).reduce((a,c) => a + c, 0)
+  const planTotal = plans[subscription.selectedPlan][term.long]
+  const subtotal = addonsTotal + planTotal
 
   return (
     <>
@@ -20,39 +25,25 @@ export default function SummaryStep() {
         <ul id="planTotals" className={addons.length ? 'withAddons' : ''}>
           <li id="heading">
             <div>
-              <h2>
-                {`${capitalize(subscription.selectedPlan)} 
-                (${subscription.yearlyTerm ? 'Annual' : 'Monthly'})`}</h2>
+              <h2>{plans[subscription.selectedPlan].label} ({capitalize(term.long)})</h2>
               <a href="/plan">Change</a>
             </div>
-            <strong>$9/mo</strong>
+            <strong>${plans[subscription.selectedPlan][term.long]}/{term.short}</strong>
           </li>
-          {subscription.onlineServiceAddon && (
-            <li>
-              <span>Online service</span>
-              <span>+$1/mo</span>
-            </li>
-          )}
-          {subscription.largerStorageAddon && (
-            <li>
-              <span>Larger storage</span>
-              <span>+$2/mo</span>
-            </li>
-          )}
-          {subscription.customProfileAddon && (
-            <li>
-              <span>Customizable profile</span>
-              <span>+$2/mo</span>
-            </li>
-          )}
+          {addons.map((addon, i) => {
+            return (<li key={i}>
+              <span>{plans.addons[addon].label}</span>
+              <span>+${plans.addons[addon][term.long]}/{term.short}</span>
+            </li>)
+          })}
         </ul>
 
         <footer>
           <span>Total (per month)</span>
-          <strong>+$12/mo</strong>
+          <strong>+${subtotal}/{term.short}</strong>
         </footer>
       </section>
-      <FormButtons onSubmit={handleSubmit} goBack="/addons" />
+      <FormButtons onSubmit={handleSubmit} goBack="/addons" nextLabel="Confirm" />
     </>
   )
 }

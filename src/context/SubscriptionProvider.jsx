@@ -18,6 +18,9 @@ export default function SubscriptionProvider({ children }) {
   const nextAvailableStep = maxStep + 1
   const hasRequestedFirstStep = requestedStep === 0;
 
+  const term = subscription?.yearlyTerm ?
+    { long: "yearly", short: "yr" } : {long: "monthly", short: "mo"}
+
   const saveStep = (stepNumber, data, callback = f => f) => {
     setSubscription({
       ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
@@ -43,7 +46,7 @@ export default function SubscriptionProvider({ children }) {
   }
 
   return (
-    <SubscriptionContext.Provider value={{ subscription, saveStep, nextAvailableStep, reset }}>
+    <SubscriptionContext.Provider value={{ subscription, saveStep, nextAvailableStep, reset, term }}>
       {children}
     </SubscriptionContext.Provider>
   )

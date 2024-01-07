@@ -1,0 +1,37 @@
+{
+  "arcade": {
+    "monthly": 9,
+    "yearly": 90,
+    "label": "Arcade"
+  },
+  "advanced": {
+    "monthly": 12,
+    "yearly": 120,
+    "label": "Advanced"
+  },
+  "pro": {
+    "monthly": 15,
+    "yearly": 150,
+    "label": "Pro"
+  },
+  "addons": {
+    "onlineService": {
+      "monthly": 1,
+      "yearly": 10,
+      "label": "Online service",
+      "description": "Access to multiplayer games"
+    },
+    "largerStorage": {
+      "monthly": 2,
+      "yearly": 20,
+      "label": "Larger storage",
+      "description": "Extra 1TB of cloud storage"
+    },
+    "customProfile": {
+      "monthly": 1,
+      "yearly": 10,
+      "label": "Customizable profile",
+      "description": "Custom theme on your profile"
+    }
+  }
+}

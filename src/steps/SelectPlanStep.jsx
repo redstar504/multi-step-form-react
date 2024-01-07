@@ -2,7 +2,7 @@ import '../styles/plan.css'
 import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import pricing from '../pricing.json'
+import pricing from '../plans.json'
 import { useSubscription } from '../hooks/useSubscription.js'
 
 export default function SelectPlanStep() {

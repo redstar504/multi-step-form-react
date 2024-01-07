@@ -3,9 +3,11 @@ import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useSubscription } from '../hooks/useSubscription.js'
+import plans from '../plans.json'
 
 export default function AddonsStep() {
-  const { saveStep, subscription } = useSubscription()
+  const { saveStep, subscription, term } = useSubscription()
+  const allAddons = plans.addons
   const navigate = useNavigate()
 
   const {
@@ -26,32 +28,35 @@ export default function AddonsStep() {
         <p>Add-ons help enhance your gaming experience. </p>
         <form id="selectAddons">
           <ul id="planAddons">
-            <li>
-              <input
-                {...register('addons' )}
-                name="addons"
-                value="onlineServices"
-                type="checkbox"
-                id="onlineServiceOffer"
-              />
-              <label htmlFor="onlineServiceOffer">
-                <i className="addonControl"></i>
-                <span className="offer">
-                        Online service
-                        <small>Access to multiplayer games</small>
+            {Object.keys(allAddons).map((key, i) => (
+              <li key={i}>
+                <input
+                  {...register('addons')}
+                  name="addons"
+                  type="checkbox"
+                  id={allAddons[key].label}
+                  value={key}
+                />
+                <label htmlFor={allAddons[key].label}>
+                  <i className="addonControl"></i>
+                  <span className="offer">
+                        {allAddons[key].label}
+                        <small>{allAddons[key].description}</small>
                     </span>
-                <small className="fee">+$1/mo</small>
-              </label>
-            </li>
-            <li>
+                  <small className="fee">+${allAddons[key][term.long]}/{term.short}</small>
+                </label>
+              </li>
+            ))}
+
+            {/*<li>
               <input
-                {...register('addons' )}
+                {...register('addons')}
                 name="addons"
                 type="checkbox"
-                id="largerStorageOffer"
+                id="largerStorage"
                 value="largerStorage"
               />
-              <label htmlFor="largerStorageOffer">
+              <label htmlFor="largerStorage">
                 <i className="addonControl"></i>
                 <span className="offer">
                         Larger Storage
@@ -65,10 +70,10 @@ export default function AddonsStep() {
                 {...register('addons')}
                 name="addons"
                 type="checkbox"
-                id="customProfileOffer"
+                id="customProfile"
                 value="customProfile"
               />
-              <label htmlFor="customProfileOffer">
+              <label htmlFor="customProfile">
                 <i className="addonControl"></i>
                 <span className="offer">
                         Customizable profile
@@ -76,7 +81,7 @@ export default function AddonsStep() {
                     </span>
                 <small className="fee">+$2/mo</small>
               </label>
-            </li>
+            </li>*/}
           </ul>
         </form>
       </section>
