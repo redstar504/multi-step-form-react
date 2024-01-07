@@ -5,20 +5,19 @@ import { useEffect } from 'react'
 import { useSubscription } from './hooks/useSubscription.js'
 
 export default function Nav() {
-  const { getMaxStep } = useSubscription()
+  const { maxStep } = useSubscription()
   const location = useLocation()
   const currentPath = location.pathname
-  const maxStep = getMaxStep()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
 
-  useEffect(() => {
+  /*useEffect(() => {
     const indexOfRequestedStep = steps.indexOf(steps.find(step => step.path === currentPath))
 
     if (indexOfRequestedStep > 0 && indexOfRequestedStep > maxStep + 1) {
       navigate(steps[indexOfRequestedStep - 1].path)
     }
-  }, [navigate, maxStep, currentPath])
+  }, [navigate, maxStep, currentPath])*/
 
   return (
     <ul id="nav">
