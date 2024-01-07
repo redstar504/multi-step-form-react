@@ -88,6 +88,7 @@ article {
 #termLength:checked + #termLengthWrapper span:last-of-type {
     color: var(--marine-blue);
 }
+
 #termLength:checked + #termLengthWrapper span:first-of-type {
     color: var(--cool-gray);
 }
@@ -116,11 +117,11 @@ article {
     left: 1.3125rem;
 }
 
-@media(min-width: 60.75em) {
+@media (min-width: 60.75em) {
     #planOptions {
         flex-direction: row;
         column-gap: 1em;
-        margin:0 0 2em;
+        margin: 0 0 2em;
     }
 
     #planOptions li {

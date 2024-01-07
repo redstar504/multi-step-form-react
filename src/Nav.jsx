@@ -1,19 +1,12 @@
-import PropTypes from "prop-types";
-import NavItem from "./NavItem.jsx";
+import NavItem from './NavItem.jsx'
 
-export default function Nav({steps, currentStep, onNavigate}) {
-
-    return (
-        <ul id="nav">
-            {steps.map((step, i) => (
-                <NavItem key={i} active={i === currentStep} title={steps[i]} onClick={() => onNavigate(i)} />
-            ))}
-        </ul>
-    );
+export default function Nav({ steps }) {
+  console.log(steps)
+  return (
+    <ul id="nav">
+      {steps.map((step, i) => (
+        <NavItem key={i} {...step} />
+      ))}
+    </ul>
+  )
 }
-
-Nav.propTypes = {
-    steps: PropTypes.array,
-    currentStep: PropTypes.number,
-    onNavigate: PropTypes.func,
-};

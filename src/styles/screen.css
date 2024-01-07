@@ -342,7 +342,7 @@ main > footer #nextStep:disabled {
     }
 
     h2, label span {
-        font-size:  1rem;
+        font-size: 1rem;
         color: var(--marine-blue);
         line-height: normal;
         font-weight: 500;
@@ -351,7 +351,7 @@ main > footer #nextStep:disabled {
     main > footer {
         grid-column-start: 2;
         grid-column-end: 3;
-        padding:0 10%;
+        padding: 0 10%;
     }
 
     main > footer #nextStep {
