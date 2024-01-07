@@ -1,7 +1,7 @@
-export default function NavItem({ title, route, isActive, isEnabled }) {
+export default function NavItem({ title, path, isActive, isEnabled }) {
   return (
     <li className={isActive ? 'active' : ''}>
-      <a href={isEnabled ? route : null}><span>{title}</span></a>
+      <a href={isEnabled ? path : null}><span>{title}</span></a>
     </li>
   )
 }

@@ -1,35 +1,27 @@
 import '../styles/summary.css'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 import { capitalize } from '../lib/helpers.js'
+import { useSubscription } from '../context/SubscriptionProvider.jsx'
 
 export default function SummaryStep({updateNav}) {
-  const existingData = JSON.parse(sessionStorage.getItem("data"))
+  const { subscription, hasAddons } = useSubscription()
+  console.log('has addons', hasAddons)
   const navigate = useNavigate()
   const isUnauthorized = data => !data || data.completedStep < 2
 
   useEffect(() => {
-    updateNav(3)
-  }, [updateNav])
-
-  useEffect(() => {
-    if (isUnauthorized(existingData)) {
+    if (isUnauthorized(subscription)) {
       return navigate('/addons')
     }
-  }, [navigate, existingData])
+  }, [navigate, subscription])
 
   const handleSubmit = () => {
     navigate("/success")
   }
 
-  const hasAddons = existingData => ![
-    existingData?.largerStorageAddon,
-    existingData?.onlineServiceAddon,
-    existingData?.onlineServiceAddon,
-  ].every(addon => addon === false)
-
-  if (isUnauthorized(existingData)) {
+  if (isUnauthorized(subscription)) {
     return null;
   }
 
@@ -39,27 +31,29 @@ export default function SummaryStep({updateNav}) {
         <h1>Finishing up</h1>
         <p>Double check everything looks okay before confirming.</p>
 
-        <ul id="planTotals" className={hasAddons(existingData) ? 'withAddons' : ''}>
+        <ul id="planTotals" className={hasAddons ? 'withAddons' : ''}>
           <li id="heading">
             <div>
-              <h2>{capitalize(existingData?.selectedPlan)} ({existingData?.yearlyTerm ? 'Annual' : 'Monthly'})</h2>
+              <h2>
+                {`${capitalize(subscription.selectedPlan)} 
+                (${subscription.yearlyTerm ? 'Annual' : 'Monthly'})`}</h2>
               <a href="/plan">Change</a>
             </div>
             <strong>$9/mo</strong>
           </li>
-          {existingData?.onlineServiceAddon && (
+          {subscription.onlineServiceAddon && (
             <li>
               <span>Online service</span>
               <span>+$1/mo</span>
             </li>
           )}
-          {existingData?.largerStorageAddon && (
+          {subscription.largerStorageAddon && (
             <li>
               <span>Larger storage</span>
               <span>+$2/mo</span>
             </li>
           )}
-          {existingData?.customProfileAddon && (
+          {subscription.customProfileAddon && (
             <li>
               <span>Customizable profile</span>
               <span>+$2/mo</span>

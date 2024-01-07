@@ -2,11 +2,14 @@ import '../styles/plan.css'
 import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import pricing from '../pricing.json'
+import { useSessionData } from '../hooks/useSessionData.js'
+import { useSubscription } from '../context/SubscriptionProvider.jsx'
 
 export default function SelectPlanStep({ updateNav }) {
-  const existingData = JSON.parse(sessionStorage.getItem('data'))
+  const {saveStep, subscription} = useSubscription()
+  const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
   const isUnauthorized = data => !data;
 
@@ -17,29 +20,26 @@ export default function SelectPlanStep({ updateNav }) {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      yearlyTerm: existingData?.yearlyTerm,
-      selectedPlan: existingData?.selectedPlan
+      yearlyTerm: subscription?.yearlyTerm,
+      selectedPlan: subscription?.selectedPlan
     }
   })
 
-  useEffect(() => {
-    updateNav(1)
-  }, [updateNav])
-
-  useEffect(() => {
-    if (isUnauthorized(existingData)) {
+  /*useEffect(() => {
+    if (isUnauthorized(data)) {
       navigate("/")
     }
-  }, [navigate, existingData])
+  }, [navigate, data])*/
+
+  useEffect(() => {
+    if (!isCompleted) return
+    // nav to next step on completion
+    navigate("/addons")
+  }, [navigate, isCompleted])
 
   const onSubmit = data => {
-    // save data
-    const existingData = JSON.parse(sessionStorage.getItem('data'))
-    const mergedData = { ...existingData, ...data }
-    mergedData.completedStep = mergedData.completedStep > 1 ? mergedData.completedStep : 1;
-    sessionStorage.setItem('data', JSON.stringify(mergedData))
-    // navigate to next step
-    navigate('/addons')
+    saveStep(1, data)
+    setIsCompleted(true)
   }
 
   const yearlyTerm = watch('yearlyTerm')

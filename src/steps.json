@@ -1,18 +1,18 @@
 [
   {
     "title": "Your Info",
-    "route": "/"
+    "path": "/"
   },
   {
     "title": "Select Plan",
-    "route": "/plan"
+    "path": "/plan"
   },
   {
     "title": "Add-ons",
-    "route": "/addons"
+    "path": "/addons"
   },
   {
     "title": "Summary",
-    "route": "/summary"
+    "path": "/summary"
   }
 ]

@@ -2,10 +2,13 @@ import '../styles/addons.css'
 import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useSessionData } from '../hooks/useSessionData.js'
+import { useSubscription } from '../context/SubscriptionProvider.jsx'
 
 export default function AddonsStep({updateNav}) {
-  const existingData = JSON.parse(sessionStorage.getItem("data"))
+  const {saveStep, subscription} = useSubscription()
+  const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
   const isUnauthorized = data => !data || data.completedStep < 1;
   const {
@@ -13,35 +16,31 @@ export default function AddonsStep({updateNav}) {
     handleSubmit
   } = useForm({
     defaultValues: {
-      largerStorageAddon: existingData?.largerStorageAddon,
-      onlineServiceAddon: existingData?.onlineServiceAddon,
-      customProfileAddon: existingData?.customProfileAddon,
+      largerStorageAddon: subscription?.largerStorageAddon,
+      onlineServiceAddon: subscription?.onlineServiceAddon,
+      customProfileAddon: subscription?.customProfileAddon,
     }
   })
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (isUnauthorized(existingData)) {
       navigate("/plan")
     }
-  }, [existingData, navigate])
+  }, [existingData, navigate])*/
+
+  /*if (isUnauthorized(existingData)) {
+    return null;
+  }*/
 
   useEffect(() => {
-    updateNav(2)
-  }, [updateNav])
-
-  if (isUnauthorized(existingData)) {
-    return null;
-  }
+    if (!isCompleted) return
+    // navigate to next step on completion
+    navigate("/summary")
+  }, [navigate, isCompleted])
 
   const onSubmit = data => {
-    // save data
-    const existingData = JSON.parse(sessionStorage.getItem('data'))
-    const mergedData = {completedStep: 2, ...existingData, ...data};
-    mergedData.completedStep = mergedData.completedStep > 2 ? mergedData.completedStep : 2;
-    sessionStorage.setItem("data", JSON.stringify(mergedData))
-
-    // navigate to next step
-    navigate("/summary")
+    saveStep(2, data)
+    setIsCompleted(true)
   }
 
   return (

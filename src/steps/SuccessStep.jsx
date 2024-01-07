@@ -1,14 +1,13 @@
 import '../styles/success.css'
 import { useEffect } from 'react'
+import { useSubscription } from '../context/SubscriptionProvider.jsx'
 
-function SuccessStep({updateNav}) {
-  useEffect(() => {
-    updateNav(4)
-  }, [updateNav])
+function SuccessStep() {
+  const { reset } = useSubscription()
 
   useEffect(() => {
-    sessionStorage.clear()
-  })
+    reset()
+  }, [])
 
   return (
     <section className="card" id="successCard">

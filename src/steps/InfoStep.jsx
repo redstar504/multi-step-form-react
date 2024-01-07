@@ -2,13 +2,12 @@ import { useForm } from 'react-hook-form'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-
-const loadJSON = key => key && JSON.parse(sessionStorage.getItem(key))
-const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data))
-
+import { useSubscription } from '../context/SubscriptionProvider.jsx'
 
 export default function InfoStep({updateNav}) {
-  const existingData = JSON.parse(sessionStorage.getItem("data"))
+  const { saveStep, subscription } = useSubscription()
+  const [isCompleted, setIsCompleted] = useState(false)
+  const navigate = useNavigate()
 
   const {
     register,
@@ -16,27 +15,21 @@ export default function InfoStep({updateNav}) {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      fullName: existingData?.fullName,
-      emailAddress: existingData?.emailAddress,
-      phoneNumber: existingData?.phoneNumber,
+      fullName: subscription?.fullName,
+      emailAddress: subscription?.emailAddress,
+      phoneNumber: subscription?.phoneNumber,
     }
   })
 
   useEffect(() => {
-    updateNav(0)
-  }, [updateNav])
+    if (!isCompleted) return
+    // navigate to next step on completion
+    navigate('/plan')
+  }, [isCompleted, navigate])
 
-  const navigate = useNavigate()
-
-  const onSubmit = (data) => {
-    // save data
-    const existingData = JSON.parse(sessionStorage.getItem('data'))
-    const mergedData = {...existingData, ...data};
-    mergedData.completedStep = mergedData.completedStep > 0 ? mergedData.completedStep : 0;
-    sessionStorage.setItem("data", JSON.stringify(mergedData))
-
-    // navigate to next step
-    navigate("/plan")
+  const onSubmit = data => {
+    saveStep(0, data)
+    setIsCompleted(true)
   }
 
   return (
