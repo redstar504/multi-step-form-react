@@ -1,4 +1,4 @@
-article {
+form {
     display: flex;
     flex-direction: column-reverse;
 }
@@ -10,7 +10,7 @@ article {
     margin: 0 0 1.5em;
 }
 
-#planOptions a {
+#planOptions label {
     border-radius: 0.5em;
     padding: 1.375em 1em 1.375em 4.5em;
     background-repeat: no-repeat;
@@ -25,26 +25,28 @@ article {
     row-gap: 0.4375rem;
 }
 
-#planOptions a:hover,
-#planOptions a:active,
-#planOptions a:focus {
+#planOptions input {
+    display: none;
+}
+
+#planOptions label:hover,
+#planOptions input:checked + label {
     border-color: var(--purplish-blue);
 }
 
-#planOptions a:active,
-#planOptions a:focus {
+#planOptions input:checked + label {
     background-color: var(--alabaster);
 }
 
-#arcade a {
+#arcade label {
     background-image: url(../assets/icon-arcade.svg);
 }
 
-#advanced a {
+#advanced label {
     background-image: url(../assets/icon-advanced.svg);
 }
 
-#pro a {
+#pro label {
     background-image: url(../assets/icon-pro.svg);
 }
 
@@ -130,7 +132,7 @@ article {
         height: 10em;
     }
 
-    #planOptions li a {
+    #planOptions li label {
         display: flex;
         flex-direction: column;
         padding: 1em 1em 1.25em;
