@@ -13,8 +13,10 @@ export default function SubscriptionProvider({ children }) {
   const navigate = useNavigate()
   const currentPath = location.pathname
 
-  const indexOfRequestedStep = steps.indexOf(steps.find(step => step.path === currentPath))
+  const requestedStep = steps.indexOf(steps.find(step => step.path === currentPath))
   const maxStep = !subscription ? -1 : subscription.completedStep
+  const nextAvailableStep = maxStep + 1
+  const hasRequestedFirstStep = requestedStep === 0;
 
   const saveStep = (stepNumber, data, callback = f => f) => {
     setSubscription({
@@ -24,32 +26,24 @@ export default function SubscriptionProvider({ children }) {
   }
 
   useEffect(() => {
-    // console.log(`[${currentPath}] Redirecting? ${isAuthorized === false}`)
-    if (false === isAuthorized) navigate(steps[maxStep + 1].path)
-  }, [isAuthorized, navigate, maxStep])
+    if (false === isAuthorized) navigate(steps[nextAvailableStep].path)
+  }, [isAuthorized, navigate, nextAvailableStep])
 
   useEffect(() => {
-    const check = indexOfRequestedStep === 0 || indexOfRequestedStep <= maxStep + 1;
-    // console.log(`[${currentPath}] Is unauthorized? ${!check}`)
-    setIsAuthorized(check)
-  }, [indexOfRequestedStep, maxStep])
-
-  const hasAddons = ![
-    subscription?.largerStorageAddon,
-    subscription?.onlineServiceAddon,
-    subscription?.customProfileAddon
-  ].every(addon => addon === false)
+    const isAuthorized = hasRequestedFirstStep || requestedStep <= nextAvailableStep;
+    setIsAuthorized(isAuthorized)
+  }, [requestedStep, nextAvailableStep, hasRequestedFirstStep])
 
   if (!isAuthorized) {
     return null;
   }
 
-  if (!subscription && indexOfRequestedStep > 0) {
+  if (!subscription && requestedStep > 0) {
     return null;
   }
 
   return (
-    <SubscriptionContext.Provider value={{ saveStep, subscription, hasAddons, maxStep, reset, isAuthorized }}>
+    <SubscriptionContext.Provider value={{ subscription, saveStep, nextAvailableStep, reset }}>
       {children}
     </SubscriptionContext.Provider>
   )

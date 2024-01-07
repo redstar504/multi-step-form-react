@@ -13,7 +13,7 @@ export default function AddonsStep() {
     handleSubmit
   } = useForm({
     defaultValues: {
-      addons: subscription.addons,
+      addons: subscription.addons || [],
     }
   })
 

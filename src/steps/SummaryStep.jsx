@@ -5,8 +5,9 @@ import { capitalize } from '../lib/helpers.js'
 import { useSubscription } from '../hooks/useSubscription.js'
 
 export default function SummaryStep() {
-  const { subscription, hasAddons } = useSubscription()
+  const { subscription } = useSubscription()
   const navigate = useNavigate()
+  const addons = subscription.addons
 
   const handleSubmit = () => navigate('/success')
 
@@ -16,7 +17,7 @@ export default function SummaryStep() {
         <h1>Finishing up</h1>
         <p>Double check everything looks okay before confirming.</p>
 
-        <ul id="planTotals" className={hasAddons ? 'withAddons' : ''}>
+        <ul id="planTotals" className={addons.length ? 'withAddons' : ''}>
           <li id="heading">
             <div>
               <h2>
