@@ -6,7 +6,8 @@ import { useEffect } from 'react'
 
 export default function AddonsStep({updateNav}) {
   const existingData = JSON.parse(sessionStorage.getItem("data"))
-
+  const navigate = useNavigate()
+  const isUnauthorized = data => !data || data.completedStep < 1;
   const {
     register,
     handleSubmit
@@ -19,15 +20,24 @@ export default function AddonsStep({updateNav}) {
   })
 
   useEffect(() => {
+    if (isUnauthorized(existingData)) {
+      navigate("/plan")
+    }
+  }, [existingData, navigate])
+
+  useEffect(() => {
     updateNav(2)
   }, [updateNav])
 
-  const navigate = useNavigate()
+  if (isUnauthorized(existingData)) {
+    return null;
+  }
 
   const onSubmit = data => {
     // save data
     const existingData = JSON.parse(sessionStorage.getItem('data'))
-    const mergedData = {...existingData, ...data};
+    const mergedData = {completedStep: 2, ...existingData, ...data};
+    mergedData.completedStep = mergedData.completedStep > 2 ? mergedData.completedStep : 2;
     sessionStorage.setItem("data", JSON.stringify(mergedData))
 
     // navigate to next step

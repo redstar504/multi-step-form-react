@@ -10,32 +10,38 @@ import SuccessStep from './steps/SuccessStep.jsx'
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0)
+  const existingData = JSON.parse(sessionStorage.getItem('data'))
+  const lastStepCompleted = data => data?.completedStep >= 0 ? data.completedStep : -1;
 
   return (
     <>
-      <Nav steps={steps} currentStep={currentStep} />
+      <Nav steps={steps} currentStep={currentStep} lastStepCompleted={lastStepCompleted(existingData)} />
       <Routes>
         <Route
           index
           element={<InfoStep
+            existingData={existingData}
             updateNav={step => setCurrentStep(step)}
           />}
         />
         <Route
           path="/plan"
           element={<SelectPlanStep
+            existingData={existingData}
             updateNav={step => setCurrentStep(step)}
           />}
         />
         <Route
           path="/addons"
           element={<AddonsStep
+            existingData={existingData}
             updateNav={step => setCurrentStep(step)}
           />}
         />
         <Route
           path="/summary"
           element={<SummaryStep
+            existingData={existingData}
             updateNav={step => setCurrentStep(step)}
           />}
         />

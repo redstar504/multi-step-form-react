@@ -1,7 +1,11 @@
 import { useForm } from 'react-hook-form'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+const loadJSON = key => key && JSON.parse(sessionStorage.getItem(key))
+const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data))
+
 
 export default function InfoStep({updateNav}) {
   const existingData = JSON.parse(sessionStorage.getItem("data"))
@@ -28,6 +32,7 @@ export default function InfoStep({updateNav}) {
     // save data
     const existingData = JSON.parse(sessionStorage.getItem('data'))
     const mergedData = {...existingData, ...data};
+    mergedData.completedStep = mergedData.completedStep > 0 ? mergedData.completedStep : 0;
     sessionStorage.setItem("data", JSON.stringify(mergedData))
 
     // navigate to next step
@@ -57,7 +62,7 @@ export default function InfoStep({updateNav}) {
               <strong>{errors.emailAddress?.message}</strong>
             </label>
             <input
-              {...register('emailAddress', { required: 'Please enter your email address' })}
+              {...register('emailAddress', { required: 'Enter your email address' })}
               type="email"
               name="emailAddress"
               id="emailAddress"
@@ -69,7 +74,7 @@ export default function InfoStep({updateNav}) {
               <strong>{errors.phoneNumber?.message}</strong>
             </label>
             <input
-              {...register('phoneNumber', { required: 'Please provide a ten digit phone number' })}
+              {...register('phoneNumber', { required: 'Enter a ten digit phone number' })}
               type="tel"
               name="phoneNumber"
               id="phoneNumber"

@@ -25,7 +25,7 @@
     color: var(--purplish-blue);
 }
 
-#planTotals #heading {
+#planTotals.withAddons #heading {
     border-bottom: 1px solid var(--lighter-gray);
     padding: 0 0 .75rem;
 }
@@ -70,7 +70,7 @@
         padding: 1.5rem;
     }
 
-    #planTotals #heading {
+    #planTotals.withAddons #heading {
         padding: 0 0 1.5rem;
     }
 

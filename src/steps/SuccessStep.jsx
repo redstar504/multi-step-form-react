@@ -6,6 +6,10 @@ function SuccessStep({updateNav}) {
     updateNav(4)
   }, [updateNav])
 
+  useEffect(() => {
+    sessionStorage.clear()
+  })
+
   return (
     <section className="card" id="successCard">
       <article>
