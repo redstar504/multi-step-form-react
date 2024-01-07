@@ -8,9 +8,7 @@ export default function SummaryStep() {
   const { subscription, hasAddons } = useSubscription()
   const navigate = useNavigate()
 
-  const handleSubmit = () => {
-    navigate('/success')
-  }
+  const handleSubmit = () => navigate('/success')
 
   return (
     <>

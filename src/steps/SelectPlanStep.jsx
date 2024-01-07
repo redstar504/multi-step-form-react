@@ -2,13 +2,11 @@ import '../styles/plan.css'
 import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import pricing from '../pricing.json'
 import { useSubscription } from '../hooks/useSubscription.js'
 
 export default function SelectPlanStep() {
   const { saveStep, subscription } = useSubscription()
-  const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
 
   const {
@@ -23,18 +21,14 @@ export default function SelectPlanStep() {
     }
   })
 
-  useEffect(() => {
-    if (isCompleted) navigate('/addons')
-  }, [navigate, isCompleted])
+  const onSubmit = data => saveStep(1, data, () => navigate('/addons'))
 
-  const onSubmit = data => {
-    saveStep(1, data)
-    setIsCompleted(true)
-  }
+  const getLabels = is => is ?
+    ({long: 'yearly', short: 'yr'}) :
+    ({long: 'monthly', short: 'mo'});
 
-  const yearlyTerm = watch('yearlyTerm')
-  const term = yearlyTerm ? 'yearly' : 'monthly'
-  const label = yearlyTerm ? 'yr' : 'mo'
+  const isAnnual = watch('yearlyTerm')
+  const labels = getLabels(isAnnual)
 
   return (
     <>
@@ -63,7 +57,7 @@ export default function SelectPlanStep() {
                 />
                 <label htmlFor="arcadePlan">
                   <h2>Arcade</h2>
-                  ${pricing.arcade[term]}/{label}
+                  ${pricing.arcade[labels.long]}/{labels.short}
                   <small className="annualOffer">2 months free</small>
                 </label>
               </li>
@@ -77,7 +71,7 @@ export default function SelectPlanStep() {
                 />
                 <label htmlFor="advancedPlan">
                   <h2>Advanced</h2>
-                  ${pricing.advanced[term]}/{label}
+                  ${pricing.advanced[labels.long]}/{labels.short}
                   <small className="annualOffer">2 months free</small>
                 </label>
               </li>
@@ -91,7 +85,7 @@ export default function SelectPlanStep() {
                 />
                 <label htmlFor="proPlan">
                   <h2>Pro</h2>
-                  ${pricing.pro[term]}/{label}
+                  ${pricing.pro[labels.long]}/{labels.short}
                   <small className="annualOffer">2 months free</small>
                 </label>
               </li>

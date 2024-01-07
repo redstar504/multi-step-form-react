@@ -1,12 +1,11 @@
 import { useForm } from 'react-hook-form'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { useSubscription } from '../hooks/useSubscription.js'
 
 export default function InfoStep() {
   const { saveStep, subscription } = useSubscription()
-  const [isCompleted, setIsCompleted] = useState(false)
+  // const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
 
   const {
@@ -21,14 +20,7 @@ export default function InfoStep() {
     }
   })
 
-  useEffect(() => {
-    if (isCompleted) navigate('/plan')
-  }, [isCompleted, navigate])
-
-  const onSubmit = data => {
-    saveStep(0, data)
-    setIsCompleted(true)
-  }
+  const onSubmit = data => saveStep(0, data, () => navigate('/plan'))
 
   return (
     <>

@@ -2,12 +2,10 @@ import '../styles/addons.css'
 import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { useSubscription } from '../hooks/useSubscription.js'
 
 export default function AddonsStep() {
   const { saveStep, subscription } = useSubscription()
-  const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
 
   const {
@@ -15,20 +13,11 @@ export default function AddonsStep() {
     handleSubmit
   } = useForm({
     defaultValues: {
-      largerStorageAddon: subscription?.largerStorageAddon,
-      onlineServiceAddon: subscription?.onlineServiceAddon,
-      customProfileAddon: subscription?.customProfileAddon
+      addons: subscription.addons,
     }
   })
 
-  useEffect(() => {
-    if (isCompleted) navigate('/summary')
-  }, [navigate, isCompleted])
-
-  const onSubmit = data => {
-    saveStep(2, data)
-    setIsCompleted(true)
-  }
+  const onSubmit = data => saveStep(2, data, () => navigate('/summary'))
 
   return (
     <>
@@ -39,8 +28,9 @@ export default function AddonsStep() {
           <ul id="planAddons">
             <li>
               <input
-                {...register('onlineServiceAddon')}
-                name="onlineServiceAddon"
+                {...register('addons' )}
+                name="addons"
+                value="onlineServices"
                 type="checkbox"
                 id="onlineServiceOffer"
               />
@@ -55,10 +45,11 @@ export default function AddonsStep() {
             </li>
             <li>
               <input
-                {...register('largerStorageAddon')}
-                name="largerStorageAddon"
+                {...register('addons' )}
+                name="addons"
                 type="checkbox"
                 id="largerStorageOffer"
+                value="largerStorage"
               />
               <label htmlFor="largerStorageOffer">
                 <i className="addonControl"></i>
@@ -71,10 +62,11 @@ export default function AddonsStep() {
             </li>
             <li>
               <input
-                {...register('customProfileAddon')}
-                name="customProfileAddon"
+                {...register('addons')}
+                name="addons"
                 type="checkbox"
                 id="customProfileOffer"
+                value="customProfile"
               />
               <label htmlFor="customProfileOffer">
                 <i className="addonControl"></i>

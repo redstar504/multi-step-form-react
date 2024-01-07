@@ -10,5 +10,17 @@
   "pro": {
     "monthly": 15,
     "yearly": 150
+  },
+  "onlineServiceAddon": {
+    "monthly": 1,
+    "yearly": 20
+  },
+  "largerStorageAddon": {
+    "monthly": 2,
+    "yearly": 20
+  },
+  "customizableProfileAddon": {
+    "monthly": 1,
+    "yearly": 10
   }
 }

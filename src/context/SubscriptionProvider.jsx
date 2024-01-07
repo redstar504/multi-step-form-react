@@ -8,6 +8,7 @@ export const SubscriptionContext = createContext()
 export default function SubscriptionProvider({ children }) {
   const [subscription, setSubscription, reset] = useSessionData()
   const [isAuthorized, setIsAuthorized] = useState(null)
+
   const location = useLocation()
   const navigate = useNavigate()
   const currentPath = location.pathname
@@ -15,20 +16,23 @@ export default function SubscriptionProvider({ children }) {
   const indexOfRequestedStep = steps.indexOf(steps.find(step => step.path === currentPath))
   const maxStep = !subscription ? -1 : subscription.completedStep
 
-  const saveStep = (stepNumber, data) => setSubscription({
-    ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
-  })
+  const saveStep = (stepNumber, data, callback = f => f) => {
+    setSubscription({
+      ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
+    })
+    callback()
+  }
 
   useEffect(() => {
-    console.log(`[${currentPath}] Redirecting? ${isAuthorized === false}`)
+    // console.log(`[${currentPath}] Redirecting? ${isAuthorized === false}`)
     if (false === isAuthorized) navigate(steps[maxStep + 1].path)
-  }, [location.pathname, isAuthorized, navigate, maxStep])
+  }, [isAuthorized, navigate, maxStep])
 
   useEffect(() => {
     const check = indexOfRequestedStep === 0 || indexOfRequestedStep <= maxStep + 1;
-    console.log(`[${currentPath}] Is unauthorized? ${!check}`)
+    // console.log(`[${currentPath}] Is unauthorized? ${!check}`)
     setIsAuthorized(check)
-  }, [location.pathname, indexOfRequestedStep, maxStep])
+  }, [indexOfRequestedStep, maxStep])
 
   const hasAddons = ![
     subscription?.largerStorageAddon,
