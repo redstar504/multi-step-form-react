@@ -18,6 +18,8 @@ export default function InfoStep() {
     navigate("/plan")
   }
 
+  console.log(errors)
+
   return (
     <>
       <section className="card" id="infoForm">

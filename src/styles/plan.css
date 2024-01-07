@@ -10,6 +10,20 @@ form {
     margin: 0 0 1.5em;
 }
 
+.errorMessage {
+    color: var(--strawberry-red);
+    font-size: 0.875rem;
+    text-align:center;
+    font-weight: 700;
+    height: 1.5em;
+    line-height: 1.5em;
+    margin: 0 0 0.5em;
+}
+
+.errorMessage + #planOptions label {
+    border-color: var(--strawberry-red);
+}
+
 #planOptions label {
     border-radius: 0.5em;
     padding: 1.375em 1em 1.375em 4.5em;
@@ -63,7 +77,7 @@ form {
     display: block;
 }
 
-#termLength {
+#yearlyTerm {
     display: none;
 }
 
@@ -83,15 +97,15 @@ form {
     font-size: 0.875rem;
 }
 
-#termLength + #termLengthWrapper span:first-of-type {
+#yearlyTerm + #termLengthWrapper span:first-of-type {
     color: var(--marine-blue);
 }
 
-#termLength:checked + #termLengthWrapper span:last-of-type {
+#yearlyTerm:checked + #termLengthWrapper span:last-of-type {
     color: var(--marine-blue);
 }
 
-#termLength:checked + #termLengthWrapper span:first-of-type {
+#yearlyTerm:checked + #termLengthWrapper span:first-of-type {
     color: var(--cool-gray);
 }
 
@@ -115,11 +129,15 @@ form {
     transition: 0.075s left;
 }
 
-#termLength:checked + #termLengthWrapper #termControl i {
+#yearlyTerm:checked + #termLengthWrapper #termControl i {
     left: 1.3125rem;
 }
 
 @media (min-width: 60.75em) {
+    .errorMessage {
+        margin: -1.5em 0 0.5em;
+    }
+
     #planOptions {
         flex-direction: row;
         column-gap: 1em;

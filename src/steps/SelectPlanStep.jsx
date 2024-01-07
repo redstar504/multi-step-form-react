@@ -1,7 +1,20 @@
 import '../styles/plan.css'
 import FormButtons from './FormButtons.jsx'
+import { useForm } from 'react-hook-form'
 
 export default function SelectPlanStep() {
+  const {
+    register,
+    handleSubmit ,
+    formState: { errors }
+  } = useForm()
+  const onSubmit = data => {
+    console.log(data)
+  }
+
+  console.log(errors);
+
+
   return (
     <>
       <section className="card" id="planCard">
@@ -10,8 +23,8 @@ export default function SelectPlanStep() {
 
         <form id="selectPlanForm">
           <fieldset>
-            <input type="checkbox" id="termLength" />
-            <label id="termLengthWrapper" htmlFor="termLength">
+            <input {...register("yearlyTerm")} type="checkbox" id="yearlyTerm" />
+            <label id="termLengthWrapper" htmlFor="yearlyTerm">
               <span>Monthly</span>
               <i id="termControl"><i></i></i>
               <span>Yearly</span>
@@ -19,9 +32,16 @@ export default function SelectPlanStep() {
           </fieldset>
 
           <fieldset>
+            {errors.selectedPlan && (<p className="errorMessage">{errors.selectedPlan.message}</p>)}
             <ul id="planOptions">
               <li id="arcade">
-                <input type="radio" id="arcadePlan" name="selectedPlan" />
+                <input
+                  {...register("selectedPlan", {required: "You must choose a plan to proceed."})}
+                  type="radio"
+                  id="arcadePlan"
+                  name="selectedPlan"
+                  value="arcade"
+                />
                 <label htmlFor="arcadePlan">
                   <h2>Arcade</h2>
                   $9/mo
@@ -29,7 +49,13 @@ export default function SelectPlanStep() {
                 </label>
               </li>
               <li id="advanced">
-                <input type="radio" id="advancedPlan" name="selectedPlan" />
+                <input
+                  {...register("selectedPlan")}
+                  type="radio"
+                  id="advancedPlan"
+                  name="selectedPlan"
+                  value="advanced"
+                />
                 <label htmlFor="advancedPlan">
                   <h2>Advanced</h2>
                   $12/mo
@@ -37,7 +63,13 @@ export default function SelectPlanStep() {
                 </label>
               </li>
               <li id="pro">
-                <input type="radio" id="proPlan" name="selectedPlan" />
+                <input
+                  {...register("selectedPlan")}
+                  type="radio"
+                  id="proPlan"
+                  name="selectedPlan"
+                  value="pro"
+                />
                 <label htmlFor="proPlan">
                   <h2>Pro</h2>
                   $15/mo
@@ -48,7 +80,7 @@ export default function SelectPlanStep() {
           </fieldset>
         </form>
       </section>
-      <FormButtons forForm="selectPlanForm" />
+      <FormButtons forForm="selectPlanForm" onSubmit={handleSubmit(onSubmit)} />
     </>
   )
 }
