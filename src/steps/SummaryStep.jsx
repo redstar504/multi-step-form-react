@@ -7,7 +7,6 @@ import { useSubscription } from '../context/SubscriptionProvider.jsx'
 
 export default function SummaryStep({updateNav}) {
   const { subscription, hasAddons } = useSubscription()
-  console.log('has addons', hasAddons)
   const navigate = useNavigate()
   const isUnauthorized = data => !data || data.completedStep < 2
 
