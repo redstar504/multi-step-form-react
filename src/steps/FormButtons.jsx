@@ -6,11 +6,9 @@ export default function FormButtons({
   goBack = null,
   nextLabel = 'Next Step'
 }) {
-  const navigate = useNavigate()
-
   return (
     <footer>
-      {goBack && <a href="#" onClick={() => navigate(goBack)} id="prevStep">Go Back</a>}
+      {goBack && <a href={goBack} id="prevStep">Go Back</a>}
       <button id="nextStep" type="submit" form={forForm} onClick={onSubmit}>{nextLabel}</button>
     </footer>
   )

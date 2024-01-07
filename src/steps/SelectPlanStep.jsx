@@ -93,7 +93,7 @@ export default function SelectPlanStep() {
           </fieldset>
         </form>
       </section>
-      <FormButtons forForm="selectPlanForm" onSubmit={handleSubmit(onSubmit)} goBack="/" />
+      <FormButtons forForm="selectPlanForm" onSubmit={handleSubmit(onSubmit)} goBack="/#/" />
     </>
   )
 }

@@ -43,7 +43,7 @@ export default function SummaryStep() {
           <strong>+${subtotal}/{term.short}</strong>
         </footer>
       </section>
-      <FormButtons onSubmit={handleSubmit} goBack="/addons" nextLabel="Confirm" />
+      <FormButtons onSubmit={handleSubmit} goBack="/#/addons" nextLabel="Confirm" />
     </>
   )
 }
