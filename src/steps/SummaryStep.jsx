@@ -12,7 +12,7 @@ export default function SummaryStep() {
 
   const handleSubmit = () => navigate('/success')
 
-  const addonsTotal = addons.map(label => plans.addons[label][term.long]).reduce((a,c) => a + c, 0)
+  const addonsTotal = addons?.map(label => plans.addons[label][term.long]).reduce((a,c) => a + c, 0)
   const planTotal = plans[subscription.selectedPlan][term.long]
   const subtotal = addonsTotal + planTotal
 
