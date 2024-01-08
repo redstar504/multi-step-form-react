@@ -25,7 +25,6 @@ export default function SubscriptionProvider({ children }) {
     { long: 'yearly', short: 'yr' } : { long: 'monthly', short: 'mo' }
 
   const saveStep = (stepNumber, data, callback = f => f) => {
-    console.log(`[${currentPath}] Saving step ${stepNumber} data`)
     setIsResetting(false)
     setSubscription(subscription => ({
       ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
@@ -34,7 +33,6 @@ export default function SubscriptionProvider({ children }) {
   }
 
   const confirm = callback => {
-    console.log(`[${currentPath}] Confirming all data`)
     setSubscription(subscription => ({ ...subscription, completedStep: 3 }))
     callback()
   }
@@ -46,14 +44,10 @@ export default function SubscriptionProvider({ children }) {
   }, [hasAuthority, navigate, nextAvailableStep])
 
   if (!hasAuthority) {
-    console.log('Not authorized to access this step.')
-    console.log(`[${currentPath}]: Requested step: ${requestedStep}`)
-    console.log(`[${currentPath}]: Next available step: ${nextAvailableStep}`)
     return null
   }
 
   if (!subscription && requestedStep > 0 && requestedStep < 4) {
-    console.log('subscription', subscription)
     return null
   }
 
