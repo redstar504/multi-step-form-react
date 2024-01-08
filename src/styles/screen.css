@@ -80,6 +80,27 @@ main {
     row-gap: 1em;
 }
 
+#attribution {
+    background: var(--white);
+    color: var(--cool-gray);
+    font-size: 0.75em;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    margin: -1em 0 0;
+}
+
+#attribution span {
+    opacity: 0.4;
+}
+
+#attribution a {
+    color: var(--cool-gray);
+    text-decoration: none;
+    font-weight: 700;
+}
+
 #nav {
     display: flex;
     justify-content: center;
@@ -289,16 +310,15 @@ main > footer #nextStep:disabled {
     }
 
     #attribution {
-        overflow: hidden;
+        column-gap: 1em;
         align-self: flex-end;
+        background: initial;
         color: var(--cool-gray);
         height: 3rem;
         line-height: 3em;
-        display: flex;
-        column-gap: 1em;
-        opacity: 0.4;
         font-size: 0.875em;
-        padding-right: 1em;
+        padding: 0 1em 0 0;
+        margin: 0;
     }
 
     #attribution a {
