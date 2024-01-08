@@ -15,13 +15,17 @@ export default function SubscriptionProvider({ children }) {
   const requestedStep = steps.indexOf(steps.find(step => step.path === currentPath))
   const maxStep = !subscription ? -1 : subscription.completedStep
   const nextAvailableStep = maxStep + 1
-  const hasRequestedFirstStep = requestedStep === 0;
-  const hasAuthority = hasRequestedFirstStep || requestedStep <= nextAvailableStep;
+  const hasRequestedFirstStep = requestedStep === 0
+  const hasRequestedLastStep = requestedStep === 4 && nextAvailableStep === 4
+
+  const hasAuthority = hasRequestedFirstStep ||
+    hasRequestedLastStep || requestedStep <= nextAvailableStep;
 
   const term = subscription?.yearlyTerm ?
-    { long: "yearly", short: "yr" } : {long: "monthly", short: "mo"}
+    { long: 'yearly', short: 'yr' } : { long: 'monthly', short: 'mo' }
 
   const saveStep = (stepNumber, data, callback = f => f) => {
+    console.log(`[${currentPath}] Saving step ${stepNumber} data`)
     setSubscription(subscription => ({
       ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
     }))
@@ -29,27 +33,31 @@ export default function SubscriptionProvider({ children }) {
   }
 
   const confirm = callback => {
-    setSubscription(subscription => ({...subscription, completedStep: 3}))
+    console.log(`[${currentPath}] Confirming all data`)
+    setSubscription(subscription => ({ ...subscription, completedStep: 3 }))
     callback()
   }
 
   useEffect(() => {
-    if (false === hasAuthority) navigate(steps[nextAvailableStep].path)
+    if (false === hasAuthority) {
+      navigate(steps[nextAvailableStep].path)
+    }
   }, [hasAuthority, navigate, nextAvailableStep])
 
   if (!hasAuthority) {
-    console.log("Not authorized to access this step.")
+    console.log('Not authorized to access this step.')
     console.log(`[${currentPath}]: Requested step: ${requestedStep}`)
     console.log(`[${currentPath}]: Next available step: ${nextAvailableStep}`)
-    return null;
+    return null
   }
 
-  if (!subscription && requestedStep > 0) {
-    return null;
+  if (!subscription && requestedStep > 0 && requestedStep < 4) {
+    return null
   }
 
   return (
-    <SubscriptionContext.Provider value={{ subscription, saveStep, nextAvailableStep, resetSubscription, term, confirm }}>
+    <SubscriptionContext.Provider
+      value={{ subscription, saveStep, nextAvailableStep, resetSubscription, term, confirm }}>
       {children}
     </SubscriptionContext.Provider>
   )

@@ -26,7 +26,7 @@ export default function SummaryStep() {
           <li id="heading">
             <div>
               <h2>{plans[subscription.selectedPlan].label} ({capitalize(term.long)})</h2>
-              <a href="/plan">Change</a>
+              <a href="/#/plan">Change</a>
             </div>
             <strong>${plans[subscription.selectedPlan][term.long]}/{term.short}</strong>
           </li>
