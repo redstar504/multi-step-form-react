@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 export const SubscriptionContext = createContext()
 
 export default function SubscriptionProvider({ children }) {
-  const [subscription, setSubscription, resetSubscription, isResetting] = useSessionData()
+  const [subscription, setSubscription, resetSubscription, isResetting, setIsResetting] = useSessionData()
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -25,6 +25,7 @@ export default function SubscriptionProvider({ children }) {
 
   const saveStep = (stepNumber, data, callback = f => f) => {
     console.log(`[${currentPath}] Saving step ${stepNumber} data`)
+    setIsResetting(false)
     setSubscription(subscription => ({
       ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
     }))
@@ -51,6 +52,7 @@ export default function SubscriptionProvider({ children }) {
   }
 
   if (!subscription && requestedStep > 0 && requestedStep < 4) {
+    console.log('subscription', subscription)
     return null
   }
 

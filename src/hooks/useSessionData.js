@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
+import { set } from 'react-hook-form'
 
 const loadJSON = key => key && JSON.parse(sessionStorage.getItem(key))
 const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data))
@@ -26,5 +27,5 @@ export const useSessionData = () => {
     }
   }, [data, isResetting])
 
-  return [data, setData, reset, isResetting]
+  return [data, setData, reset, isResetting, setIsResetting]
 }
