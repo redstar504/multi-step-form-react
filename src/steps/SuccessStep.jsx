@@ -8,6 +8,8 @@ function SuccessStep() {
     () => resetSubscription(), []
   )
 
+  console.log('rendering')
+
   return (
     <>
       <section className="card" id="successCard">

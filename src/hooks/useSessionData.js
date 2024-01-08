@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 const loadJSON = key => key && JSON.parse(sessionStorage.getItem(key))
 const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data))
@@ -6,20 +6,25 @@ const clearJSON = (key) => sessionStorage.removeItem(key)
 
 export const useSessionData = () => {
   const [data, setData] = useState(loadJSON('data'))
+  const [isResetting, setIsResetting] = useState(false)
 
   const reset = () => {
-    console.log('Clearing all data')
-    setData('')
-    clearJSON('data')
+    setIsResetting(true)
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!data) {
       return
     }
-    console.log(`Saving data to JSON store!`, data)
     saveJSON('data', data)
   }, [data])
 
-  return [data, setData, reset]
+  useEffect(() => {
+    if (isResetting) {
+      clearJSON('data')
+      setData(null)
+    }
+  }, [data, isResetting])
+
+  return [data, setData, reset, isResetting]
 }

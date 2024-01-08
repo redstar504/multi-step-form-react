@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 export const SubscriptionContext = createContext()
 
 export default function SubscriptionProvider({ children }) {
-  const [subscription, setSubscription, resetSubscription] = useSessionData()
+  const [subscription, setSubscription, resetSubscription, isResetting] = useSessionData()
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -16,10 +16,9 @@ export default function SubscriptionProvider({ children }) {
   const maxStep = !subscription ? -1 : subscription.completedStep
   const nextAvailableStep = maxStep + 1
   const hasRequestedFirstStep = requestedStep === 0
-  const hasRequestedLastStep = requestedStep === 4 && nextAvailableStep === 4
 
   const hasAuthority = hasRequestedFirstStep ||
-    hasRequestedLastStep || requestedStep <= nextAvailableStep
+    isResetting || requestedStep <= nextAvailableStep
 
   const term = subscription?.yearlyTerm ?
     { long: 'yearly', short: 'yr' } : { long: 'monthly', short: 'mo' }
