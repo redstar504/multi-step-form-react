@@ -35,6 +35,18 @@ body, button, input, table, textarea, select {
     font-family: inherit;
 }
 
+#successCard {
+    position: relative;
+}
+
+#confettiContainer {
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+}
+
 button {
     background: none;
     border: none;
