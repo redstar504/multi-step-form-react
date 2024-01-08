@@ -3,7 +3,7 @@ import FormButtons from './FormButtons.jsx'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useSubscription } from '../hooks/useSubscription.js'
-import plans from '../plans.json'
+import plans from '../../data/plans.json'
 
 export default function AddonsStep() {
   const { saveStep, subscription, term } = useSubscription()

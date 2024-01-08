@@ -1,7 +1,8 @@
 import { useSessionData } from '../hooks/useSessionData.js'
 import { createContext, useEffect } from 'react'
-import steps from '../steps.json'
+import steps from '../../data/steps.json'
 import { useLocation, useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 export const SubscriptionContext = createContext()
 
@@ -62,4 +63,8 @@ export default function SubscriptionProvider({ children }) {
       {children}
     </SubscriptionContext.Provider>
   )
+}
+
+SubscriptionProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 }

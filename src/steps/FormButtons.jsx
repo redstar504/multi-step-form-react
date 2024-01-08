@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export default function FormButtons({
   forForm,
   onSubmit,
@@ -10,4 +12,11 @@ export default function FormButtons({
       <button id="nextStep" type="submit" form={forForm} onClick={onSubmit}>{nextLabel}</button>
     </footer>
   )
+}
+
+FormButtons.propTypes = {
+  forForm: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  goBack: PropTypes.string,
+  nextLabel: PropTypes.string
 }

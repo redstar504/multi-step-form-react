@@ -2,7 +2,7 @@ import '../styles/summary.css'
 import FormButtons from './FormButtons.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useSubscription } from '../hooks/useSubscription.js'
-import plans from '../plans.json'
+import plans from '../../data/plans.json'
 import { capitalize } from '../lib/helpers.js'
 
 export default function SummaryStep() {

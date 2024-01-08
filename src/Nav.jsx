@@ -1,6 +1,6 @@
 import NavItem from './NavItem.jsx'
 import { useLocation } from 'react-router-dom'
-import steps from './steps.json'
+import steps from '../data/steps.json'
 import { useSubscription } from './hooks/useSubscription.js'
 
 export default function Nav() {
