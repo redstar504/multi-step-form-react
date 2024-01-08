@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 
 const loadJSON = key => key && JSON.parse(sessionStorage.getItem(key))
 const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data))

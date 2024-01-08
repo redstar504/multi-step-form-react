@@ -5,7 +5,6 @@ import { useSubscription } from '../hooks/useSubscription.js'
 
 export default function InfoStep() {
   const { saveStep, subscription } = useSubscription()
-  // const [isCompleted, setIsCompleted] = useState(false)
   const navigate = useNavigate()
 
   const {

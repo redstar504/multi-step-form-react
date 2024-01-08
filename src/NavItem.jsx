@@ -1,5 +1,3 @@
-import { generatePath } from 'react-router-dom'
-
 export default function NavItem({ title, path, isActive, isEnabled }) {
   return (
     <li className={isActive ? 'active' : ''}>

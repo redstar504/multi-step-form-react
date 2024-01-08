@@ -7,12 +7,12 @@ import { capitalize } from '../lib/helpers.js'
 
 export default function SummaryStep() {
   const { confirm, subscription, term } = useSubscription()
-  const addons = subscription.addons;
+  const addons = subscription.addons
   const navigate = useNavigate()
 
   const handleSubmit = () => confirm(() => navigate('/success'))
 
-  const addonsTotal = addons?.map(label => plans.addons[label][term.long]).reduce((a,c) => a + c, 0)
+  const addonsTotal = addons?.map(label => plans.addons[label][term.long]).reduce((a, c) => a + c, 0)
   const planTotal = plans[subscription.selectedPlan][term.long]
   const subtotal = addonsTotal + planTotal
 

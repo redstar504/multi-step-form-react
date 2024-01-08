@@ -15,7 +15,7 @@ export default function AddonsStep() {
     handleSubmit
   } = useForm({
     defaultValues: {
-      addons: subscription.addons || [],
+      addons: subscription.addons || []
     }
   })
 
@@ -41,7 +41,7 @@ export default function AddonsStep() {
                   <i className="addonControl"></i>
                   <span className="offer">
                         {allAddons[key].label}
-                        <small>{allAddons[key].description}</small>
+                    <small>{allAddons[key].description}</small>
                     </span>
                   <small className="fee">+${allAddons[key][term.long]}/{term.short}</small>
                 </label>

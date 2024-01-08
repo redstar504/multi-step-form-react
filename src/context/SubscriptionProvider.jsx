@@ -1,5 +1,5 @@
 import { useSessionData } from '../hooks/useSessionData.js'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect } from 'react'
 import steps from '../steps.json'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -19,7 +19,7 @@ export default function SubscriptionProvider({ children }) {
   const hasRequestedLastStep = requestedStep === 4 && nextAvailableStep === 4
 
   const hasAuthority = hasRequestedFirstStep ||
-    hasRequestedLastStep || requestedStep <= nextAvailableStep;
+    hasRequestedLastStep || requestedStep <= nextAvailableStep
 
   const term = subscription?.yearlyTerm ?
     { long: 'yearly', short: 'yr' } : { long: 'monthly', short: 'mo' }

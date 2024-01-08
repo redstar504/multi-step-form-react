@@ -24,8 +24,8 @@ export default function SelectPlanStep() {
   const onSubmit = data => saveStep(1, data, () => navigate('/addons'))
 
   const getLabels = is => is ?
-    ({long: 'yearly', short: 'yr'}) :
-    ({long: 'monthly', short: 'mo'});
+    ({ long: 'yearly', short: 'yr' }) :
+    ({ long: 'monthly', short: 'mo' })
 
   const isAnnual = watch('yearlyTerm')
   const labels = getLabels(isAnnual)
