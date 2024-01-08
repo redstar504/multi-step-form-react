@@ -1,5 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
-import { set } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 
 const loadJSON = key => key && JSON.parse(sessionStorage.getItem(key))
 const saveJSON = (key, data) => sessionStorage.setItem(key, JSON.stringify(data))

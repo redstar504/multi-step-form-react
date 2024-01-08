@@ -12,5 +12,5 @@ NavItem.propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
-  isEnabled: PropTypes.bool.isRequired,
+  isEnabled: PropTypes.bool.isRequired
 }
