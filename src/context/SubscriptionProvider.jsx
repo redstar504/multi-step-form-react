@@ -27,7 +27,7 @@ export default function SubscriptionProvider({ children }) {
   const saveStep = (stepNumber, data, callback = f => f) => {
     setIsResetting(false)
     setSubscription(subscription => ({
-      ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber)
+      ...subscription, ...data, completedStep: Math.max(maxStep, stepNumber),
     }))
     callback()
   }
@@ -60,5 +60,5 @@ export default function SubscriptionProvider({ children }) {
 }
 
 SubscriptionProvider.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
