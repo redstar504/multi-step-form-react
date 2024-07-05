@@ -50,7 +50,7 @@ export default function AddonsStep() {
           </ul>
         </form>
       </section>
-      <FormButtons forForm="addonsForm" onSubmit={handleSubmit(onSubmit)} goBack="/#/plan" />
+      <FormButtons forForm="addonsForm" onSubmit={handleSubmit(onSubmit)} goBack="/multi-step-form-react/#/plan" />
     </>
   )
 }

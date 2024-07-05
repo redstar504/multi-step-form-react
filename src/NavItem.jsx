@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 export default function NavItem({ title, path, isActive, isEnabled }) {
   return (
     <li className={isActive ? 'active' : ''}>
-      <a href={isEnabled ? `/#${path}` : null}><span>{title}</span></a>
+      <a href={isEnabled ? `/multi-step-form-react/#${path}` : null}><span>{title}</span></a>
     </li>
   )
 }
